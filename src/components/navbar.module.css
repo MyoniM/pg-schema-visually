@@ -1,0 +1,5 @@
+.wrapper {
+  height: 50px;
+  border-top: var(--bold-border);
+  border-bottom: var(--light-border);
+}

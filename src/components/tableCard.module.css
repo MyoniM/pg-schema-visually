@@ -1,0 +1,27 @@
+.cardWrapper {
+  background-color: white;
+  width: 300px;
+  height: 200px;
+  border: var(--light-border);
+  border-radius: 5px;
+}
+
+.cardWrapper:hover {
+  background-color: var(--main-color);
+  cursor: pointer;
+}
+
+.cardWrapper:active {
+  cursor: grab;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.cardWrapper h3 {
+  padding: 3px 5px;
+  margin: 0;
+  color: rgb(0, 0, 0);
+  background-color: var(--main-color);
+  border-radius: 5px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
