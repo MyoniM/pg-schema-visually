@@ -3,18 +3,22 @@ import Draggable from 'react-draggable';
 
 // styles
 import classes from './tableCard.module.css';
+
 import { LooseObject } from '../utils/generateViewData';
 
 interface IProps {
   tableName: string;
   tableData: LooseObject;
+  scale: number;
+  onMove: () => void;
+  onStop: () => void;
 }
 
-function TableCard({ tableName, tableData }: IProps) {
-  const updateXarrow = useXarrow();
+function TableCard({ tableName, tableData, scale, onMove, onStop }: IProps) {
+  const _ = useXarrow();
   return (
-    <Draggable bounds="parent" onDrag={updateXarrow} onStop={updateXarrow}>
-      <div id={tableName} className={classes.cardWrapper}>
+    <Draggable scale={scale} onDrag={onMove} onStop={onStop}>
+      <div id={tableName} className={`${classes.cardWrapper} card`}>
         <h3>{tableName}</h3>
         {tableData['columns'].map((column: string[], idx: number) => {
           return (

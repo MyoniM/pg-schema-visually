@@ -10,13 +10,16 @@ import Visualizer from './components/visualizer';
 export const CodeContext = createContext<any>(null);
 
 function App() {
-  const [code, setCode] = useState('');
+  const [viewData, setViewData] = useState({
+    successfulViewData: {},
+  });
+
   console.log('App rebuilding');
 
   return (
     <div className="wrapper">
       <Navbar />
-      <CodeContext.Provider value={{ code, setCode }}>
+      <CodeContext.Provider value={{ viewData, setViewData }}>
         <Split
           style={{ display: 'flex' }}
           sizes={[40, 60]}

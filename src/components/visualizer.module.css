@@ -1,0 +1,14 @@
+.visualizerView {
+  height: calc(100vh - 50px);
+  width: 100vw;
+}
+
+.hoveringMenu {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  height: 40px;
+  width: 100px;
+  background-color: aqua;
+  border-radius: 5px;
+}

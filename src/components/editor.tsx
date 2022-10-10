@@ -12,9 +12,10 @@ import { oneDarkTheme, oneDarkHighlightStyle } from '@codemirror/theme-one-dark'
 import { syntaxHighlighting } from '@codemirror/language';
 
 import { CodeContext } from '../App';
+import { generateViewData } from '../utils/generateViewData';
 
 export default function Editor() {
-  const { setCode } = useContext(CodeContext);
+  const { setViewData } = useContext(CodeContext);
 
   const Theme = EditorView.theme({
     '&': {
@@ -26,7 +27,16 @@ export default function Editor() {
     },
   });
 
-  const debouncedSetCode = debounce(setCode, 300);
+  // the whole purpose of this function is to preserve view state while displaying error
+  // last successful view data is stored on state so visualizer always shows that data
+  // when error is thrown it will be added on the viewData state and it will be displayed as overlay
+  const setHandler = (stringCode: string) => {
+    const { viewData, errorMessage } = generateViewData(stringCode);
+    if (errorMessage != null) setViewData((prevData: any) => ({ ...prevData, errorMessage }));
+    else setViewData((_: any) => ({ successfulViewData: viewData }));
+  };
+
+  const debouncedSetCode = debounce(setHandler, 300);
 
   useEffect(() => {
     const state = EditorState.create({
