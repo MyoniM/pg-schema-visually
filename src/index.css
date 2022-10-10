@@ -12,9 +12,11 @@ code {
 }
 
 :root {
-  --main-color: aquamarine;
+  --main-color: black;
+  --light-color: rgb(231, 231, 231);
+  --hover-color: rgb(248, 253, 255);
   --bold-border: 5px solid var(--main-color);
-  --light-border: 1px solid rgb(231, 231, 231);
+  --light-border: 1px solid var(--light-color);
 }
 
 .gutter {
@@ -38,10 +40,6 @@ code {
   width: 100vw;
 }
 
-.CodeMirror * {
-  font-size: 20px;
-}
-
 .editor-view {
   height: calc(100vh - 50px);
   width: 50vw;
@@ -49,10 +47,9 @@ code {
 }
 
 .visualizer-view {
-  /* height: calc(100vh - 50px); */
-  height: 100vh;
+  height: calc(100vh - 50px);
   width: 50vw;
-  position: relative;
+  position: static;
   background-size: 20px 20px;
   background-image: radial-gradient(circle, #c7c7c7 1px, rgba(0, 0, 0, 0) 1px);
   background-position-x: calc(-10px);

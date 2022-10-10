@@ -1,4 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useContext } from 'react';
+
+import debounce from 'lodash/debounce';
 
 import { basicSetup } from 'codemirror';
 import { EditorView, keymap } from '@codemirror/view';
@@ -9,8 +11,10 @@ import { PostgreSQL, sql } from '@codemirror/lang-sql';
 import { oneDarkTheme, oneDarkHighlightStyle } from '@codemirror/theme-one-dark';
 import { syntaxHighlighting } from '@codemirror/language';
 
+import { CodeContext } from '../App';
+
 export default function Editor() {
-  const codeRef = useRef('');
+  const { setCode } = useContext(CodeContext);
 
   const Theme = EditorView.theme({
     '&': {
@@ -22,6 +26,8 @@ export default function Editor() {
     },
   });
 
+  const debouncedSetCode = debounce(setCode, 300);
+
   useEffect(() => {
     const state = EditorState.create({
       extensions: [
@@ -32,16 +38,14 @@ export default function Editor() {
         keymap.of([indentWithTab]),
         oneDarkTheme,
         syntaxHighlighting(oneDarkHighlightStyle),
-        // EditorView.updateListener.of((e) => (codeRef.current = e.state.doc.toString())),
+        EditorView.updateListener.of((e) => {
+          debouncedSetCode(e.state.doc.toString());
+        }),
       ],
     });
 
     new EditorView({ state, parent: document.querySelector('#editor')! });
   }, []);
 
-  return (
-    // <div>
-    <div id="editor" spellCheck="false"></div>
-    // </div>
-  );
+  return <div id="editor" spellCheck="false"></div>;
 }
