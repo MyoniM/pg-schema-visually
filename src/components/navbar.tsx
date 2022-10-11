@@ -10,7 +10,7 @@ export default function Navbar() {
         <img src="./pg-ic.svg" alt="pg-logo" />
         <h1>Schema Visually</h1>
       </div>
-      <button className={classes.btn}>Export to PDF</button>
+      <button className="btn">Export to PDF</button>
     </div>
   );
 }

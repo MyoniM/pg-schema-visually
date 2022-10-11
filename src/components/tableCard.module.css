@@ -1,31 +1,20 @@
 .cardWrapper {
-  background-color: white;
+  background-color: var(--card-body);
   width: 300px;
   height: fit-content;
-  border: var(--light-border);
-  border-radius: 5px;
+  color: white;
 }
 
 .cardWrapper:hover {
-  background-color: var(--hover-color);
-  cursor: pointer;
-}
-
-.cardWrapper:active {
-  cursor: grab;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  cursor: move;
 }
 
 .cardWrapper h3 {
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  padding: 3px 5px;
+  padding: 3px 10px;
   margin: 0;
-  color: white;
-  background-color: var(--main-color);
-  border-radius: 5px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  background-color: var(--card-header);
 }
 
 .column p {
@@ -36,10 +25,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 5px;
+  padding: 0 10px;
   padding-bottom: 10px;
   margin-top: 10px;
-  border-bottom: var(--light-border);
 }
 
 .fk {

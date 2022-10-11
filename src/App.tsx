@@ -35,7 +35,9 @@ function App() {
           <div className="editor-view">
             <Editor />
           </div>
-          <Visualizer />
+          <div>
+            <Visualizer />
+          </div>
         </Split>
       </CodeContext.Provider>
     </div>
