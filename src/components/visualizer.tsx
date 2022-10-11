@@ -15,8 +15,8 @@ import classes from './visualizer.module.css';
 
 export default function Visualizer() {
   const [isMoveable, setIsMoveable] = useState<boolean>(false);
-  const [checked, setChecked] = useState<boolean>(true);
-  const [rerender, setRerender] = useState({});
+  const [checked, setChecked] = useState<boolean>(false);
+  const [, setRerender] = useState({});
 
   const { viewData } = useContext(CodeContext);
 
@@ -68,6 +68,8 @@ export default function Visualizer() {
                     return (
                       <TableCard
                         key={tableName}
+                        checked={checked}
+                        darkSide={viewData['darkSide']}
                         tableName={tableName}
                         tableData={successfulViewData[tableName]}
                         scale={state.scale}
@@ -89,12 +91,19 @@ export default function Visualizer() {
               key={tableName + idx}
               start={referencedTableName}
               end={tableName}
-              color={!checked ? 'grey' : 'aquamarine'}
+              color={!checked ? '#72737a' : viewData['darkSide'] ? 'aquamarine' : '#316896'}
               dashness={true}
               path="grid"
               curveness={0.1}
-              strokeWidth={2}
+              strokeWidth={checked ? 2 : 1}
               showHead={false}
+              // labels={
+              //   checked
+              //     ? {
+              //         middle: <p className="tag">1 - n</p>,
+              //       }
+              //     : {}
+              // }
               zIndex={-99}
             />
           );

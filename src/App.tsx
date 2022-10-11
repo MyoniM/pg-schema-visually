@@ -10,21 +10,25 @@ import Visualizer from './components/visualizer';
 export const CodeContext = createContext<any>(null);
 
 function App() {
+  const [collapsedIdx, setCollapsedIdx] = useState<number>(1);
+
   const [viewData, setViewData] = useState({
     successfulViewData: {},
+    darkSide: false,
   });
 
   console.log('App rebuilding');
 
   return (
     <div className="wrapper">
-      <Navbar />
       <CodeContext.Provider value={{ viewData, setViewData }}>
+        <Navbar />
         <Split
           style={{ display: 'flex' }}
-          sizes={[40, 60]}
-          minSize={450}
+          sizes={[25, 75]}
+          minSize={-1}
           expandToMin={false}
+          collapsed={collapsedIdx}
           gutterSize={10}
           gutterAlign="center"
           snapOffset={30}
@@ -33,6 +37,15 @@ function App() {
           cursor="col-resize"
         >
           <div className="editor-view">
+            <div
+              className="editor-view-btn"
+              onClick={() => {
+                if (collapsedIdx === 0) setCollapsedIdx(1);
+                else setCollapsedIdx(0);
+              }}
+            >
+              {collapsedIdx == 1 ? '<' : '>'}
+            </div>
             <Editor />
           </div>
           <div>

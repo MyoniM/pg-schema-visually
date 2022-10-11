@@ -33,7 +33,7 @@ export default function Editor() {
   const setHandler = (stringCode: string) => {
     const { viewData, errorMessage } = generateViewData(stringCode);
     if (errorMessage != null) setViewData((prevData: any) => ({ ...prevData, errorMessage }));
-    else setViewData((_: any) => ({ successfulViewData: viewData }));
+    else setViewData((prevData: any) => ({ successfulViewData: viewData, darkSide: prevData['darkSide'] }));
   };
 
   const debouncedSetCode = debounce(setHandler, 300);

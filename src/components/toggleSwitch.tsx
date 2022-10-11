@@ -2,7 +2,7 @@ import React from 'react';
 
 interface IProps {
   checked: boolean;
-  onChange: (value: React.SetStateAction<boolean>) => void;
+  onChange: (value: boolean) => void;
 }
 
 const ToggleSwitch = ({ checked, onChange }: IProps) => (

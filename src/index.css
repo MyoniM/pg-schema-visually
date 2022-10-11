@@ -1,24 +1,32 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
-  background-color: var(--dark-bg);
+  background-color: #fbfbfb;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+* {
+  font-family: 'IBM Plex Sans', sans-serif;
+  letter-spacing: 1.5px;
+  box-sizing: border-box;
+}
+
 :root {
   --main-color: black;
   --light-color: rgb(231, 231, 231);
   --hover-color: rgb(248, 253, 255);
+  --navbar-bg: #1c2128;
   --dark-bg: #44444c;
-  --card-header: #222222;
-  --card-body: #37383f;
+  --card-header-dark: #222222;
+  --card-header-light: #316896;
+  --card-body-dark: #37383f;
+  --card-body-light: #f2f2f2;
   --bold-border: 5px solid var(--main-color);
   --light-border: 1px solid var(--light-color);
 }
@@ -44,10 +52,86 @@ code {
   width: 100vw;
 }
 
+.cm-editor {
+  max-height: calc(100vh - 50px);
+}
+
 .editor-view {
-  height: calc(100vh - 50px);
-  width: 50vw;
+  max-height: calc(100vh - 50px);
+  max-width: 30vw;
   background-color: #282c34;
+  position: relative;
+}
+
+.editor-view-btn {
+  position: absolute;
+  top: 20px;
+  right: -25px;
+  height: 30px;
+  width: 20px;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 500;
+  z-index: 100;
+}
+
+.editor-view-btn:hover {
+  cursor: pointer;
+}
+
+.btn-wrapper {
+  padding: 6px 15px;
+  background-color: #373c44;
+  border-radius: 4px;
+  text-decoration: none;
+  color: white;
+  display: flex;
+  gap: 10px;
+}
+
+.home {
+  background-color: var(--navbar-bg);
+  width: 100%;
+  height: 100vh;
+  margin: 0 auto;
+  padding: 0 5%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.home h1 {
+  font-size: 90px;
+  font-weight: 900;
+  color: white;
+}
+
+.home h1 span {
+  background: linear-gradient(to right, #1c7ed6 0%, #3bc9db 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.tag {
+  padding: 5px;
+  background-color: aquamarine;
+}
+
+.error-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
 }
 
 /* customize scroll bar */
@@ -58,20 +142,20 @@ code {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #888;
+  background: #bebebe;
   border-radius: 5px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
   border-radius: 5px;
-  background: #bebebe;
+  background: #888;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   cursor: pointer;
-  background: #bdbdbd;
+  background: #888;
 }
 
 .btn {
@@ -118,6 +202,59 @@ code {
   color: #2c5777;
 }
 
+/* home page btn */
+.button-53 {
+  background-color: #3dd1e7;
+  border: 0 solid #e5e7eb;
+  box-sizing: border-box;
+  color: #000000;
+  display: flex;
+  font-family: ui-sans-serif, system-ui, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-size: 1rem;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 1.75rem;
+  padding: 0.75rem 1.65rem;
+  position: relative;
+  text-align: center;
+  text-decoration: none #000000 solid;
+  text-decoration-thickness: auto;
+  width: 100%;
+  max-width: 460px;
+  position: relative;
+  cursor: pointer;
+  transform: rotate(-2deg);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-53:focus {
+  outline: 0;
+}
+
+.button-53:after {
+  content: '';
+  position: absolute;
+  border: 1px solid #000000;
+  bottom: 4px;
+  left: 4px;
+  width: calc(100% - 1px);
+  height: calc(100% - 1px);
+}
+
+.button-53:hover:after {
+  bottom: 2px;
+  left: 2px;
+}
+
+@media (min-width: 768px) {
+  .button-53 {
+    padding: 0.75rem 3rem;
+    font-size: 1.25rem;
+  }
+}
 /* The switch - the box around the slider */
 .switch {
   position: relative;

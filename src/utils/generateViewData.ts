@@ -3,35 +3,12 @@ export interface LooseObject {
 }
 
 export const generateViewData = (code: string): { viewData: any; errorMessage: any } => {
-  // code = `TABLE person {
-  //             id int 
-  //             name varchar
-  //         }
-
-  //         TABLE student {
-  //             id int 
-  //             studentId int
-  //             personId int [      ref: person.id]
-  //         }
-
-  //         TABLE teacher {
-  //             id int 
-  //             name varchar
-  //             personId int [ ref: person.id]
-  //         }
-
-  //         TABLE staff {
-  //             id int 
-  //             staffId int
-  //              teacherId  int  [ref:  teacher.id]
-  //         }`;
-
   try {
     code = code.trim();
     if (code.length === 0) return { viewData: {}, errorMessage: null };
 
-    code = code.toLowerCase();
-    const tables = code.split('table');
+    const tables = code.split('TABLE');
+
     const viewData: LooseObject = {};
 
     tables.forEach((table) => {
@@ -44,7 +21,7 @@ export const generateViewData = (code: string): { viewData: any; errorMessage: a
 
       // add only if tableName not in viewData
       if (!Object.hasOwn(viewData, tableName)) {
-        viewData[tableName] = { columns: [], refs: [] };
+        viewData[tableName] = { columns: [], refs: [], referencedCols: [] };
       }
 
       // get every args passed to Table
@@ -71,15 +48,28 @@ export const generateViewData = (code: string): { viewData: any; errorMessage: a
           // we take the last prop
           // we then split with '.' and take the left elem(referenced table name)
           let referencedTable: string;
+          let referencedCol: string;
           const lastPropIdx = props.length - 1;
 
-          console.log(props);
-
-          if (props[lastPropIdx] === ']') referencedTable = getTableName(props[lastPropIdx - 1]);
-          else referencedTable = getTableName(props[lastPropIdx]);
+          if (props[lastPropIdx] === ']') {
+            const referenceInfo = getReferenceInfo(props[lastPropIdx - 1]);
+            referencedTable = referenceInfo[0];
+            referencedCol = referenceInfo[1];
+          } else {
+            const referenceInfo = getReferenceInfo(props[lastPropIdx]);
+            referencedTable = referenceInfo[0];
+            referencedCol = referenceInfo[1];
+          }
 
           // push the referenced table name to the current table's ref array
           viewData[tableName]['refs'].push(referencedTable);
+          // push the referenced column name to the referenced table's referencedCols array
+          // check first if the referenced table has already been parsed
+          // if not, create a new record
+          if (!Object.hasOwn(viewData, referencedTable)) {
+            viewData[referencedTable] = { columns: [], refs: [], referencedCols: [] };
+          }
+          viewData[referencedTable]['referencedCols'].push(referencedCol);
         }
 
         viewData[tableName]['columns'].push(props);
@@ -93,17 +83,24 @@ export const generateViewData = (code: string): { viewData: any; errorMessage: a
   }
 };
 
-const getTableName = (prop: string) => {
+const getReferenceInfo = (prop: string) => {
   const dotIdx = prop.indexOf('.');
   if (dotIdx === -1) {
-    throw new SyntaxError(`"expected '.(column name)' but found ']' or ' ' " \n\n Hints: \n Did you forget to add '.(column name)' after specifying table name?`);
+    throw new SyntaxError(
+      `"expected '.(column name)' but found ']' or ' ' " \n\n Hints: \n Did you forget to add '.(column name)' after specifying table name?`
+    );
   }
   if (dotIdx === 0) {
-    throw new SyntaxError(`"expected '.(column name)' but found ' ' " \n\n Hints: \n Did you forget to add '.(column name)' after specifying table name?`);
+    throw new SyntaxError(
+      `"expected '.(column name)' but found ' ' " \n\n Hints: \n Did you forget to add '.(column name)' after specifying table name?`
+    );
   }
   const tableNameSplit = prop.split('.')[0];
+  let colSplit = prop.split('.')[1];
 
-  console.log(tableNameSplit);
+  // colSplit might have a succeeding ']' if there is no space after table.col
+  const lastIdx = colSplit.length - 1;
+  if (colSplit[lastIdx] === ']') colSplit = colSplit.substring(0, lastIdx);
 
   // get 'ref:' if it exists and throw error
   const refIdx = tableNameSplit.indexOf('ref:');
@@ -112,5 +109,6 @@ const getTableName = (prop: string) => {
     throw new SyntaxError(`"expected ' ' but found '${tableNameSplit[refIdx + 4]}' " \n\n Hints: \n Did you forget to add ' ' after 'ref:'?`);
   }
 
-  return tableNameSplit;
+  // return the referenced table name, the referenced column
+  return [tableNameSplit, colSplit];
 };
