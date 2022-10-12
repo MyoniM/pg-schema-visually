@@ -3,7 +3,7 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  overflow: hidden;
   background-color: #fbfbfb;
 }
 
@@ -52,6 +52,11 @@ code {
   width: 100vw;
 }
 
+.visualizer-wrapper {
+  overflow: hidden;
+  max-height: calc(100vh - 50px);
+}
+
 .cm-editor {
   max-height: calc(100vh - 50px);
 }
@@ -63,7 +68,7 @@ code {
   line-height: 35px;
 }
 
-.help-tag{
+.help-tag {
   padding: 5px 10px;
   border-radius: 5px;
   background-color: var(--dark-bg);

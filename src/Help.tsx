@@ -6,7 +6,7 @@ import example from './assets/example.png';
 
 export default function Help() {
   return (
-    <>
+    <div style={{height: "calc(100vh)",overflow: "auto"}}>
       <BasicNavbar />
       <div className="help">
         <h1>This is a simple how to guide to use this app</h1>
@@ -40,6 +40,6 @@ export default function Help() {
         <img src={example} width="100%" alt="full example" />
         <h6 style={{ textAlign: 'center' }}>Made by Yonatan Merkebu</h6>
       </div>
-    </>
+    </div>
   );
 }

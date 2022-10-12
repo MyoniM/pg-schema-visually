@@ -46,7 +46,7 @@ function App() {
             </div>
             <Editor />
           </div>
-          <div>
+          <div className='visualizer-wrapper'>
             <Visualizer />
           </div>
         </Split>

@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 
-import Xarrow, { Xwrapper } from 'react-xarrows';
+import Xarrow, { xarrowPropsType, Xwrapper } from 'react-xarrows';
 import { TransformWrapper, TransformComponent } from '@myonim/react-zoom-pan-pinch';
 
 // components
@@ -17,6 +17,8 @@ export default function Visualizer() {
   const [isMoveable, setIsMoveable] = useState<boolean>(false);
   const [checked, setChecked] = useState<boolean>(false);
   const [, setRerender] = useState({});
+
+  const xArrows: any[] = [];
 
   const { viewData } = useContext(CodeContext);
 
@@ -65,6 +67,31 @@ export default function Visualizer() {
               <Xwrapper>
                 <div className={classes.visualizerView}>
                   {Object.keys(successfulViewData).map((tableName) => {
+                    // add arrow to xArrows list just to render outside of transform wrapper(scaling bug)
+                    successfulViewData[tableName]['refs'].forEach((referencedTableName: string, idx: number) => {
+                      xArrows.push(
+                        <Xarrow
+                          key={tableName + idx}
+                          start={referencedTableName}
+                          end={tableName}
+                          color={!checked ? '#72737a' : viewData['darkSide'] ? 'aquamarine' : '#316896'}
+                          dashness={true}
+                          path="grid"
+                          curveness={0.1}
+                          strokeWidth={checked ? 2 : 1}
+                          showHead={false}
+                          // labels={
+                          //   checked
+                          //     ? {
+                          //         middle: <p className="tag">1 - n</p>,
+                          //       }
+                          //     : {}
+                          // }
+                          zIndex={-99}
+                        />
+                      );
+                    });
+
                     return (
                       <TableCard
                         key={tableName}
@@ -84,31 +111,7 @@ export default function Visualizer() {
           </>
         )}
       </TransformWrapper>
-      {Object.keys(successfulViewData).map((tableName) => {
-        return successfulViewData[tableName]['refs'].map((referencedTableName: string, idx: number) => {
-          return (
-            <Xarrow
-              key={tableName + idx}
-              start={referencedTableName}
-              end={tableName}
-              color={!checked ? '#72737a' : viewData['darkSide'] ? 'aquamarine' : '#316896'}
-              dashness={true}
-              path="grid"
-              curveness={0.1}
-              strokeWidth={checked ? 2 : 1}
-              showHead={false}
-              // labels={
-              //   checked
-              //     ? {
-              //         middle: <p className="tag">1 - n</p>,
-              //       }
-              //     : {}
-              // }
-              zIndex={-99}
-            />
-          );
-        });
-      })}
+      {xArrows}
     </>
   );
 }
