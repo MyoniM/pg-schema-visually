@@ -55,12 +55,12 @@ export default function Visualizer() {
               <p>
                 Zoom <span>x{state.scale.toPrecision(1)}</span>
               </p>
-
               <div className={classes.highlight}>
                 Highlight
                 <ToggleSwitch checked={checked} onChange={setChecked} />
               </div>
             </div>
+
             <TransformComponent>
               <Xwrapper>
                 <div className={classes.visualizerView}>
