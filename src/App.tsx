@@ -17,8 +17,6 @@ function App() {
     darkSide: false,
   });
 
-  console.log('App rebuilding');
-
   return (
     <div className="wrapper">
       <CodeContext.Provider value={{ viewData, setViewData }}>
