@@ -13,6 +13,7 @@ import { syntaxHighlighting } from '@codemirror/language';
 
 import { CodeContext } from '../App';
 import { generateViewData } from '../utils/generateViewData';
+import { parse } from '../utils/parse';
 
 export default function Editor() {
   const { setViewData } = useContext(CodeContext);
@@ -31,9 +32,20 @@ export default function Editor() {
   // last successful view data is stored on state so visualizer always shows that data
   // when error is thrown it will be added on the viewData state and it will be displayed as overlay
   const setHandler = (stringCode: string) => {
-    const { viewData, errorMessage } = generateViewData(stringCode);
-    if (errorMessage != null) setViewData((prevData: any) => ({ ...prevData, errorMessage }));
-    else setViewData((prevData: any) => ({ successfulViewData: viewData, darkSide: prevData['darkSide'] }));
+    if (stringCode.trim().length === 0) {
+      setViewData((prevData: any) => ({ successfulViewData: {}, darkSide: prevData['darkSide'] }));
+      return;
+    }
+
+    const { ast, error } = parse(stringCode);
+
+    if (error) {
+      setViewData((prevData: any) => ({ ...prevData, errorMessage: error }));
+      return;
+    }
+
+    const viewData = generateViewData(ast);
+    setViewData((prevData: any) => ({ successfulViewData: viewData, darkSide: prevData['darkSide'] }));
   };
 
   const debouncedSetCode = debounce(setHandler, 300);

@@ -76,7 +76,7 @@ code {
 
 .editor-view {
   max-height: calc(100vh - 50px);
-  max-width: 30vw;
+  /* max-width: 30vw; */
   background-color: #282c34;
   position: relative;
 }

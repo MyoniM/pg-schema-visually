@@ -24,10 +24,8 @@ function App() {
         <Split
           style={{ display: 'flex' }}
           sizes={[25, 75]}
-          minSize={-1}
-          expandToMin={false}
-          collapsed={collapsedIdx}
           gutterSize={10}
+          collapsed={collapsedIdx}
           gutterAlign="center"
           snapOffset={30}
           dragInterval={1}
@@ -42,11 +40,11 @@ function App() {
                 else setCollapsedIdx(0);
               }}
             >
-              {collapsedIdx == 1 ? '<' : '>'}
+              {collapsedIdx === 1 ? '<' : '>'}
             </div>
             <Editor />
           </div>
-          <div className='visualizer-wrapper'>
+          <div className="visualizer-wrapper">
             <Visualizer />
           </div>
         </Split>

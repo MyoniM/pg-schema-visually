@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 
-import Xarrow, { xarrowPropsType, Xwrapper } from 'react-xarrows';
+import Xarrow, { Xwrapper } from 'react-xarrows';
 import { TransformWrapper, TransformComponent } from '@myonim/react-zoom-pan-pinch';
 
 // components
