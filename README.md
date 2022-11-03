@@ -62,3 +62,4 @@ Formated result:
 
 ![dem](https://user-images.githubusercontent.com/61096394/199826645-cf7ed555-dd16-4b26-819e-9b215328c8b1.PNG)
 
+The app needs optimizations from the react side. Better to use charting libs like d3 to visualize the data rather than drawing everything!
