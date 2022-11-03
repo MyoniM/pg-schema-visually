@@ -1,6 +1,4 @@
-## Entity-Relationship diagram visualizer 
-
-[Demo](https://pg-schema-visualizer.web.app/)
+## Entity-Relationship diagram visualizer: [Demo](https://pg-schema-visualizer.web.app/)
 
 Copy this to the editor to start fast
 
