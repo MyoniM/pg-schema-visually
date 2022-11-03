@@ -57,3 +57,8 @@ TABLE warehouse_book {
 }
 
 ```
+
+Formated result:
+
+![dem](https://user-images.githubusercontent.com/61096394/199826645-cf7ed555-dd16-4b26-819e-9b215328c8b1.PNG)
+
