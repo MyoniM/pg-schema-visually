@@ -1,5 +1,3 @@
-import React from 'react';
-
 // styles
 import classes from './errorView.module.css';
 

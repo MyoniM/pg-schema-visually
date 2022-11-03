@@ -14,7 +14,7 @@ export const generateViewData = (ast: any[]) => {
 
     // add only if tableName not in viewData
     if (!Object.hasOwn(viewData, tableName)) {
-      viewData[tableName] = { columns: [], refs: [], referencedCols: [] };
+      Object.defineProperty(viewData, tableName, { value: { columns: [], refs: [], referencedCols: [] }, enumerable: true });
     }
 
     // table_props passed to the Table
@@ -39,7 +39,7 @@ export const generateViewData = (ast: any[]) => {
         // check first if the referenced table has already been parsed
         // if not, create a new record
         if (!Object.hasOwn(viewData, referencedTableName)) {
-          viewData[referencedTableName] = { columns: [], refs: [], referencedCols: [] };
+          Object.defineProperty(viewData, referencedTableName, { value: { columns: [], refs: [], referencedCols: [] }, enumerable: true });
         }
         viewData[referencedTableName]['referencedCols'].push(referencedTableCol);
       }
