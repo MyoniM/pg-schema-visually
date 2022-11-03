@@ -11,8 +11,7 @@ export default function Help() {
       <div className="help">
         <h1>This is a simple how to guide to use this app</h1>
         <h4>
-          Every table should start with the <span className="help-tag">TABLE</span> key word. <span className="help-tag">No</span> other column or
-          type should have the same value.
+          Every table should start with the <span className="help-tag">TABLE</span> key word.
         </h4>
         <h2>How to reference a table</h2>
         <h4>For now only creating a reference is allowed. Support for reference type coming soon.</h4>
