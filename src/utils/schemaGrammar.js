@@ -9,7 +9,7 @@ export const grammarWrapper = function () {
         const comment = /--.*?$/;
         const keyword = ['ref:'];
         // identifiers could be amh/eng/_/nums (starts only with amh or eng)
-        const identifier =  /[a-zA-Z][a-zA-Z_0-9]*/;
+        const identifier =  /[a-zA-Z][a-zA-Z_0-9()]*/;
         const lSquareParen = '[';
         const rSquareParen = ']';
         const lBrace = '{';
